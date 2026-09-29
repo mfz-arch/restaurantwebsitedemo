@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import type { Currency } from '../types/restaurant';
-import { Calendar, Sparkles, LayoutDashboard } from 'lucide-react';
+import { Calendar, Utensils } from 'lucide-react';
 
 interface NavbarProps {
   currency: Currency;
   setCurrency: (c: Currency) => void;
   onOpenReservation: () => void;
-  onOpenAdmin: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   currency,
   setCurrency,
   onOpenReservation,
-  onOpenAdmin,
 }) => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -29,19 +27,19 @@ export const Navbar: React.FC<NavbarProps> = ({
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-[#08090C]/90 backdrop-blur-xl border-b border-gold-500/20 py-3 shadow-2xl'
+          ? 'bg-[#08090C]/95 backdrop-blur-xl border-b border-gold-500/20 py-3.5 shadow-2xl'
           : 'bg-gradient-to-b from-black/90 via-black/40 to-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand Logo */}
+        {/* Brand Logo - WebResto */}
         <a href="#" className="flex items-center space-x-3 group">
-          <div className="w-10 h-10 rounded-full border border-gold-500/40 flex items-center justify-center p-1 bg-black/40 group-hover:border-gold-500 transition-colors">
-            <Sparkles className="w-5 h-5 text-gold-400 group-hover:rotate-12 transition-transform duration-300" />
+          <div className="w-10 h-10 rounded-full border border-gold-500/40 flex items-center justify-center p-1 bg-black/50 group-hover:border-gold-500 transition-colors shadow-lg">
+            <Utensils className="w-5 h-5 text-gold-400 group-hover:rotate-12 transition-transform duration-300" />
           </div>
           <div>
-            <span className="font-serif text-2xl tracking-[0.25em] font-bold text-white block leading-none">
-              LUMIÈRE
+            <span className="font-serif text-2xl tracking-[0.2em] font-bold text-white block leading-none">
+              WEBRESTO
             </span>
             <span className="text-[9px] tracking-[0.3em] text-gold-400 font-sans uppercase">
               Fine Dining & Lounge
@@ -50,11 +48,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         </a>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-medium">
+        <div className="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold">
           <a href="#hero" className="text-slate-300 hover:text-gold-400 transition-colors">
             Home
           </a>
-          <a href="#menu" className="text-slate-300 hover:text-gold-400 transition-colors">
+          <a href="#dishes" className="text-slate-300 hover:text-gold-400 transition-colors">
             Menu
           </a>
           <a href="#chef" className="text-slate-300 hover:text-gold-400 transition-colors">
@@ -63,8 +61,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           <a href="#testimonials" className="text-slate-300 hover:text-gold-400 transition-colors">
             Reviews
           </a>
-          <a href="#contact" className="text-slate-300 hover:text-gold-400 transition-colors">
-            Location
+          <a href="#location" className="text-slate-300 hover:text-gold-400 transition-colors">
+            Contact
           </a>
         </div>
 
@@ -76,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setCurrency('TZS')}
               className={`px-3 py-1 rounded-full transition-all duration-300 ${
                 currency === 'TZS'
-                  ? 'bg-gold-500 text-black shadow-md'
+                  ? 'bg-gold-500 text-black shadow-md font-bold'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -86,22 +84,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setCurrency('USD')}
               className={`px-3 py-1 rounded-full transition-all duration-300 ${
                 currency === 'USD'
-                  ? 'bg-gold-500 text-black shadow-md'
+                  ? 'bg-gold-500 text-black shadow-md font-bold'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
               USD
             </button>
           </div>
-
-          {/* Manager Dashboard Toggle (Demo feature) */}
-          <button
-            onClick={onOpenAdmin}
-            title="Owner Manager Portal"
-            className="p-2.5 rounded-full bg-[#14161F] hover:bg-[#1C1F2B] text-slate-300 hover:text-gold-400 border border-white/10 transition-all duration-300"
-          >
-            <LayoutDashboard className="w-4 h-4" />
-          </button>
 
           {/* Reserve Table Button */}
           <button

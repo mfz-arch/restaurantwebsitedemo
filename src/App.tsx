@@ -7,12 +7,10 @@ import { ChefSection } from './components/ChefSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { LocationFooter } from './components/LocationFooter';
 import { TableReservationModal } from './components/TableReservationModal';
-import { AdminPortalDrawer } from './components/AdminPortalDrawer';
 
 export function App() {
   const [currency, setCurrency] = useState<Currency>('TZS');
   const [isReservationOpen, setIsReservationOpen] = useState(false);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [preSelectedDish, setPreSelectedDish] = useState<MenuItem | null>(null);
 
   const handleOpenReservationForDish = (dish: MenuItem) => {
@@ -27,15 +25,14 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#08090C] text-slate-100 font-sans selection:bg-gold-500 selection:text-black">
-      {/* Navigation Bar */}
+      {/* Clean Public Navigation Bar - WebResto */}
       <Navbar
         currency={currency}
         setCurrency={setCurrency}
         onOpenReservation={handleGeneralReservationClick}
-        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
-      {/* Main Content Sections (LUMIÈRE Design - Photo 4) */}
+      {/* Main WebResto Fine Dining Sections (Photo 4 Design) */}
       <main>
         {/* Hero Section */}
         <Hero onReserveClick={handleGeneralReservationClick} />
@@ -52,23 +49,16 @@ export function App() {
         {/* Guest Reviews & Testimonials */}
         <TestimonialsSection />
 
-        {/* Location, Operating Hours & Directions */}
+        {/* Location & Opening Hours */}
         <LocationFooter />
       </main>
 
-      {/* Interactive Reservation Modal & VIP Boarding Pass Generator */}
+      {/* Interactive Reservation Modal & VIP Boarding Voucher Generator */}
       <TableReservationModal
         isOpen={isReservationOpen}
         onClose={() => setIsReservationOpen(false)}
         currency={currency}
         preSelectedDish={preSelectedDish}
-      />
-
-      {/* Restaurant Owner Manager Portal Drawer */}
-      <AdminPortalDrawer
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
-        currency={currency}
       />
     </div>
   );
