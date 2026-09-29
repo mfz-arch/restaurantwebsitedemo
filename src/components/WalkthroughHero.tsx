@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Volume2, VolumeX, Eye, ArrowDown } from 'lucide-react';
+import { ChevronRight, Volume2, VolumeX, Eye, Sparkles, MapPin } from 'lucide-react';
 
 interface WalkthroughHeroProps {
   onReserveClick: () => void;
@@ -10,34 +10,38 @@ const SCENES = [
   {
     id: 'exterior',
     title: 'Golden Jubilee Sky Tower',
-    subtitle: 'Arriving at 21st Floor, Ohio Street • Dar es Salaam',
-    description: 'Tanzania’s premier luxury dining address. Ascend to the highest revolving lounge overlooking the Indian Ocean coastline.',
+    location: '21st Floor • Ohio Street, Dar es Salaam',
+    description: 'Ascend to East Africa’s highest revolving sanctuary. Experience panoramic sunset vistas where the skyline meets the Indian Ocean.',
     image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80',
-    tag: 'Exterior Arrival',
+    tag: '01. Arrival',
+    badge: 'Panoramic Tower'
   },
   {
     id: 'entrance',
-    title: 'The Velvet Lounge Entrance',
-    subtitle: 'Warm Champagne Lighting & Private Reception',
-    description: 'Step into an atmosphere of quiet grandeur. Our sommeliers and hosts welcome you with pre-dinner vintage aperitifs.',
+    title: 'Velvet Reception & Cocktail Lounge',
+    location: 'Champagne & Vintage Wine Cellar',
+    description: 'Immerse yourself in quiet grandeur. Private sommelier reception, warm ambient lighting, and hand-selected vintage champagnes.',
     image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1920&q=80',
-    tag: 'Step Inside',
+    tag: '02. Step Inside',
+    badge: 'Velvet Lounge'
   },
   {
     id: 'dining-room',
     title: '360° Revolving Dining Floor',
-    subtitle: 'Full Revolution Every 90 Minutes',
-    description: 'Watch the sun set over the azure horizon of Dar es Salaam while enjoying handcrafted culinary masterpieces.',
+    location: 'Full Rotation Every 90 Minutes',
+    description: 'Every table offers an ever-changing horizon. Watch the vibrant city lights of Dar es Salaam glide gently past your table.',
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80',
-    tag: 'The Main Floor',
+    tag: '03. Main Floor',
+    badge: '360° Horizon'
   },
   {
     id: 'chef-table',
-    title: "Chef's Open Flame Kitchen",
-    subtitle: 'Artisanal Swahili Seafood & Premium Cuts',
-    description: 'Watch Executive Chefs prepare fresh Indian Ocean rock lobster and prime Wagyu steaks over fragrant acacia charcoal.',
+    title: 'Chef’s Charcoal Theater',
+    location: 'Live Acacia Wood Grills',
+    description: 'Watch Michelin-experienced culinary masters prepare fresh Zanzibar rock lobster and Grade A5 Wagyu over open acacia charcoal.',
     image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1920&q=80',
-    tag: 'Cuisine Mastery',
+    tag: '04. Culinary Flame',
+    badge: 'Chef’s Table'
   }
 ];
 
@@ -47,135 +51,142 @@ export const WalkthroughHero: React.FC<WalkthroughHeroProps> = ({ onReserveClick
 
   const currentScene = SCENES[activeSceneIndex];
 
-  const handleNextScene = () => {
-    setActiveSceneIndex((prev) => (prev + 1) % SCENES.length);
-  };
-
   return (
-    <section id="walkthrough" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Image Carousel with Smooth Fade */}
+    <section id="walkthrough" className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-24 pb-12">
+      {/* Background Image Carousel */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentScene.id}
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 0, scale: 0.98 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="absolute inset-0 z-0"
         >
           <img
             src={currentScene.image}
             alt={currentScene.title}
-            className="w-full h-full object-cover object-center filter brightness-[0.45] contrast-[1.1]"
+            className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-[1.15] saturate-[1.1]"
           />
-          {/* Subtle Dynamic Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-black/40 to-black/70" />
-          <div className="absolute inset-0 bg-radial-vignette opacity-80" />
+          {/* Subtle Ambient Vignette & Radial Spotlights */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07080A] via-black/40 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#07080A]/90 via-transparent to-black/60" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Main Content Overlay */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 flex flex-col justify-between min-h-[85vh]">
-        {/* Top Badges */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-black/60 border border-gold-500/30 backdrop-blur-md text-xs font-semibold text-gold-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>Open Tonight • 360° Revolving Panorama Active</span>
-          </div>
-
-          {/* Ambience Audio Simulation Toggle */}
-          <button
-            onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-black/60 border border-white/10 hover:border-gold-500/40 backdrop-blur-md text-xs font-medium text-slate-300 hover:text-gold-400 transition-all duration-300"
-          >
-            {isPlayingAudio ? (
-              <>
-                <Volume2 className="w-4 h-4 text-gold-400 animate-pulse" />
-                <span>Ambient Jazz Audio: Active</span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-4 h-4 text-slate-400" />
-                <span>Play Dining Lounge Music</span>
-              </>
-            )}
-          </button>
+      {/* Top Header Bar Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-wrap items-center justify-between gap-4">
+        <div className="inline-flex items-center space-x-3 px-4 py-2 rounded-full bg-black/70 border border-gold-500/30 backdrop-blur-xl text-xs font-semibold">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span className="text-gold-300 font-sans tracking-wide">360° Revolving Floor Active Tonight</span>
         </div>
 
-        {/* Center Scene Presentation */}
-        <div className="my-auto max-w-3xl">
-          <motion.div
-            key={currentScene.id + '-content'}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <span className="inline-block px-3 py-1 rounded bg-gold-500/20 text-gold-400 text-xs font-semibold uppercase tracking-widest mb-4 border border-gold-500/30">
-              {currentScene.tag} • Scene {activeSceneIndex + 1} of {SCENES.length}
-            </span>
+        {/* Ambient Sound Simulation */}
+        <button
+          onClick={() => setIsPlayingAudio(!isPlayingAudio)}
+          className="inline-flex items-center space-x-2.5 px-4 py-2 rounded-full bg-black/70 border border-white/10 hover:border-gold-500/50 backdrop-blur-xl text-xs font-medium text-slate-300 hover:text-gold-400 transition-all duration-300 shadow-xl"
+        >
+          {isPlayingAudio ? (
+            <>
+              <Volume2 className="w-4 h-4 text-gold-400 animate-pulse" />
+              <span>Playing Velvet Jazz Audio</span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="w-4 h-4 text-slate-500" />
+              <span>Enable Lounge Music</span>
+            </>
+          )}
+        </button>
+      </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-white tracking-tight leading-tight mb-4 drop-shadow-lg">
+      {/* Center Hero Walkthrough Spotlight */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-12">
+        <div className="max-w-3xl">
+          <motion.div
+            key={currentScene.id + '-text'}
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+          >
+            {/* Tagline Badge */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/15 border border-gold-500/40 text-gold-400 text-xs font-semibold uppercase tracking-[0.2em] mb-6 shadow-lg">
+              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+              <span>{currentScene.tag} • {currentScene.badge}</span>
+            </div>
+
+            {/* Main Title */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-white tracking-tight leading-[1.1] mb-5 drop-shadow-2xl">
               {currentScene.title}
             </h1>
 
-            <p className="text-lg sm:text-xl font-medium text-gold-300/90 mb-4 font-sans tracking-wide">
-              {currentScene.subtitle}
-            </p>
+            {/* Location / Subtitle */}
+            <div className="flex items-center space-x-2 text-gold-400 text-sm sm:text-base font-semibold tracking-wider uppercase mb-5">
+              <MapPin className="w-4 h-4 text-gold-500" />
+              <span>{currentScene.location}</span>
+            </div>
 
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light mb-8 max-w-2xl">
+            {/* Description */}
+            <p className="text-base sm:text-xl text-slate-300 font-light leading-relaxed mb-8 max-w-2xl drop-shadow">
               {currentScene.description}
             </p>
 
-            {/* CTAs */}
+            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
               <button
                 onClick={onReserveClick}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 via-amber-400 to-gold-600 text-black font-semibold text-sm tracking-wider uppercase hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-[1.02] transition-all duration-300 flex items-center space-x-3"
+                className="shimmer-btn px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 via-amber-400 to-gold-600 text-black font-bold text-xs uppercase tracking-[0.15em] shadow-[0_0_35px_rgba(212,175,55,0.35)] hover:scale-[1.03] transition-all duration-300 flex items-center space-x-3"
               >
-                <span>Book This Table Experience</span>
-                <ChevronRight className="w-4 h-4" />
+                <span>Reserve VIP Table Experience</span>
+                <ChevronRight className="w-4 h-4 stroke-[3]" />
               </button>
 
               <button
-                onClick={handleNextScene}
-                className="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white font-medium text-sm transition-all duration-300 flex items-center space-x-2 group"
+                onClick={() => setActiveSceneIndex((prev) => (prev + 1) % SCENES.length)}
+                className="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xl text-white font-semibold text-xs tracking-wider uppercase transition-all duration-300 flex items-center space-x-2.5 group"
               >
-                <Eye className="w-4 h-4 text-gold-400 group-hover:rotate-12 transition-transform" />
-                <span>Next Walkthrough Scene</span>
+                <Eye className="w-4 h-4 text-gold-400 group-hover:scale-110 transition-transform" />
+                <span>Next Walkthrough View</span>
               </button>
             </div>
           </motion.div>
         </div>
+      </div>
 
-        {/* Bottom Interactive Scene Selector & Progress */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          {/* Scene Dots */}
-          <div className="flex items-center space-x-3">
-            {SCENES.map((scene, idx) => (
+      {/* Bottom Scene Thumbnail Grid */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="pt-6 border-t border-white/10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {SCENES.map((scene, idx) => {
+            const isActive = activeSceneIndex === idx;
+            return (
               <button
                 key={scene.id}
                 onClick={() => setActiveSceneIndex(idx)}
-                className={`group flex items-center space-x-2 px-3 py-1.5 rounded-full transition-all duration-300 ${
-                  activeSceneIndex === idx
-                    ? 'bg-gold-500/20 border border-gold-500 text-gold-400'
-                    : 'bg-black/40 border border-white/10 text-slate-400 hover:text-white'
+                className={`relative overflow-hidden rounded-2xl p-3 text-left transition-all duration-400 border flex items-center space-x-3 ${
+                  isActive
+                    ? 'bg-[#181B24]/90 border-gold-500/60 shadow-[0_0_20px_rgba(212,175,55,0.25)] ring-1 ring-gold-500/50'
+                    : 'bg-[#0F1117]/60 border-white/10 hover:border-white/25 hover:bg-[#141720]/80 opacity-70 hover:opacity-100'
                 }`}
               >
-                <span className={`w-2 h-2 rounded-full ${activeSceneIndex === idx ? 'bg-gold-400' : 'bg-slate-500'}`} />
-                <span className="text-xs font-semibold">{scene.tag}</span>
-              </button>
-            ))}
-          </div>
+                {/* Scene Mini Image */}
+                <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-white/10">
+                  <img src={scene.image} alt={scene.title} className="w-full h-full object-cover" />
+                </div>
 
-          {/* Scroll Down Indicator */}
-          <a
-            href="#ambiance"
-            className="flex items-center space-x-2 text-xs font-medium text-slate-400 hover:text-gold-400 transition-colors group"
-          >
-            <span>Explore Dining Atmosphere</span>
-            <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-          </a>
+                <div className="truncate">
+                  <span className={`text-[10px] font-bold tracking-widest uppercase block ${isActive ? 'text-gold-400' : 'text-slate-400'}`}>
+                    {scene.tag}
+                  </span>
+                  <span className="text-xs font-serif font-bold text-white truncate block">
+                    {scene.title}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>
